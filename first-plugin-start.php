@@ -29,20 +29,42 @@ define("BASIC_CANTIDAD_ELEMENTOS", 12); // Cuantos elementos usaremos para una p
 
 
 require_once BASIC_PLUGIN_DIR."clases/principal.php";
+$principal = new principal;
+
 // Al activar el plugin
 // register_activation_hook( string $file, callable $callback )
-register_activation_hook( BASIC_DIR, array('Principal','activate_plugin_func') );
+register_activation_hook( BASIC_DIR, array($principal,'activate_plugin_func') );
 
 
 // Al desactivar el plugin
 // register_activation_hook( string $file, callable $callback )
-register_deactivation_hook( BASIC_DIR, array('Principal','deactivate_plugin_func')  );
+register_deactivation_hook( BASIC_DIR, array($principal,'deactivate_plugin_func')  );
 
 
 
 // Al desinstalar el plugin
 // register_uninstall_hook( string $file, callable $callback )
-register_uninstall_hook(  BASIC_DIR, array('Principal','uninstall_plugin_func')  );
+//register_uninstall_hook(  BASIC_DIR, array($principal,'uninstall_plugin_func')  );
+
+// Añadimos accion a un hook
+// Tener cuidado con la prioridad
+add_action("admin_bar_menu","menu_superior_func",100);
+
+function menu_superior_func($wp_admin_bar){
+   // var_dump($wp_admin_bar);
+   $wp_admin_bar->remove_node("comments");
+   $wp_admin_bar->remove_node("site-name");
+   $wp_admin_bar->add_menu(array(
+      "id" => "borrar_cache",
+      "title" => "Borrar cache",
+      "href" => "#",
+      "parent" => ""
+   ));
+
+}
+
+
+
 
 
 
