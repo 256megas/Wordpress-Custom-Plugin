@@ -18,7 +18,10 @@
 
 
 // It prevent public user to directly access your .php files through URL.
-if(!defined('ABSPATH')) exit;
+// Two methods
+
+   if (!defined('ABSPATH')) exit;
+   if  (!function_exists('add_action')) exit;
 
 // Creamos rutas
 define("BASIC_DIR", __FILE__); // Ruta completa a nuestro archivo dentro de la carpeta plugin
@@ -100,12 +103,14 @@ function menu_superior_func($wp_admin_bar){
   */
 
  function first_menu_plugin(){
-    add_menu_page(  'Custom Plugin',
-                    'Custom Plugin Title', 
-                    'manage_options', 
-                    'custom-plugin', 
-                    'custom_plugin_func',
-                    'dashicons-controls-repeat',
+    add_menu_page(  'Custom Plugin', // Titulo de la pagina
+                    'Custom Plugin Title', // Titulo del menu
+                    'manage_options',  // Capability
+                    'custom-plugin', // Slug
+                    'custom_plugin_func', // funcion
+                    //'dashicons-controls-repeat',
+                    // 20x20
+                    BASIC_PLUGIN_URL.'images/star.png',
                     '3'
                 );
 
