@@ -8,7 +8,8 @@ class Principal{
             `idEncuesta` INT NOT NULL AUTO_INCREMENT,
             `nombreEncuesta` VARCHAR(45) NULL,
             `shortcodeEncuesta` VARCHAR(45) NULL,
-            PRIMARY KEY (`idEncuesta`));";
+            PRIMARY KEY (`idEncuesta`)
+            );";
         $wpdb->query($create_encuesta_query);
 
         $create_encuesta_detalle_query ="CREATE TABLE IF NOT EXISTS {$wpdb->prefix}encuesta_detalle(
@@ -16,14 +17,18 @@ class Principal{
             `idEncuesta` INT NULL,
             `preguntaDetalle` VARCHAR(155) NULL,
             `tipoDetalle` VARCHAR(45) NULL,
-            PRIMARY KEY (`idDetalle`));";
+            PRIMARY KEY (`idDetalle`),
+            FOREIGN KEY (`idEncuesta`) REFERENCES {$wpdb->prefix}encuestas(`idEncuesta`)
+        );";
         $wpdb->query($create_encuesta_detalle_query);
 
         $create_encuesta_respuesta_query ="CREATE TABLE IF NOT EXISTS {$wpdb->prefix}encuesta_respuesta(
             `idRespuesta` INT NOT NULL AUTO_INCREMENT,
             `idDetalle` INT NULL,
             `respuestaDetalle` VARCHAR(45) NULL,
-            PRIMARY KEY (`idRespuesta`));";
+            PRIMARY KEY (`idRespuesta`),
+            FOREIGN KEY (`idDetalle`) REFERENCES {$wpdb->prefix}encuesta_detalle(`idDetalle`)
+            );";
         $wpdb->query($create_encuesta_respuesta_query);
 
 

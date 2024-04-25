@@ -1,3 +1,11 @@
+<?php 
+    global $wpdb;
+    $listaEncuestasQuery = "SELECT idEncuesta, nombreEncuesta, shortcodeEncuesta FROM {$wpdb->prefix}encuestas;";
+    $listaEncuestas=$wpdb->get_results($listaEncuestasQuery,ARRAY_A)
+    if ($listaEncuestas.length==0){
+        $vacio=true;
+    }
+?>
 <div class="wrap">
     <?php
         echo "<h1>".get_admin_page_title()."</h1>";
@@ -11,14 +19,20 @@
             <th>Acciones</th>
         </thead>
         <tbody id="the-list">
-            <tr>
-                <td>Primera encuesta</td>
-                <td>[CODE]</td>
-                <td>
-                    <a href="" class="page-title-action">Ver estadisticas</a>
-                    <a href="" class="page-title-action">Borrar</a>
-                </td>
-            </tr>
+            <?php
+                foreach($listaEncuestas as $encuesta){
+                   echo "
+                        <tr>
+                            <td>{$encuesta['nombreEncuesta']}</td>
+                            <td>{$encuesta['shortcodeEncuesta']}</td>
+                            <td>
+                                <a class='page-title-action'>Ver estadisticas</a>
+                                <a class='page-title-action'>Borrar</a>
+                            </td>
+                        </tr>
+                    ";
+                };
+            ?>
         </tbody>    
     </table>
 </div>
