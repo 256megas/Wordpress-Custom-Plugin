@@ -61,11 +61,43 @@ register_deactivation_hook( BASIC_DIR, array($principal,'deactivate_plugin_func'
                     null, // funcion
                     //'dashicons-controls-repeat',
                     // 20x20
-                    BASIC_PLUGIN_URL.'images/star.png',
+                    BASIC_PLUGIN_URL.'includes/images/star.png',
                     '1'
                 );
    
  }
 
+function encolarBootstrapJS($hook){
+   // echo "<script>console.log(`$hook`)</script>" ;
+
+   if ($hook!="Wordpress-Custom-Plugin-main/includes/lista_encuestas.php"){
+      return;
+   }
+   // Alias, ruta
+   //wp_enqueue_script('bootstrapJs',plugins_url('includes/bootstrap/js/bootstrap.min.js',__FILE__),array('jquery'));   
+   wp_enqueue_script("bootstrapJS",BASIC_PLUGIN_URL.'includes/bootstrap/js/bootstrap.min.js', array('jquery'));
+}
+add_action('admin_enqueue_scripts','encolarBootstrapJS');
 
 
+function encolarBootstrapCSS($hook){
+   // echo "<script>console.log(`$hook`)</script>" ;
+
+   if ($hook!="Wordpress-Custom-Plugin-main/includes/lista_encuestas.php"){
+      return;
+   }
+   // Alias, ruta
+   wp_enqueue_style("bootstrapCSS",BASIC_PLUGIN_URL.'includes/bootstrap/css/bootstrap.min.css');
+}
+add_action('admin_enqueue_scripts','encolarBootstrapCSS');
+
+// Encolar JS Propio
+function encolarJS($hook){
+   if ($hook!="Wordpress-Custom-Plugin-main/includes/lista_encuestas.php"){
+      return;
+   }
+   // Alias, ruta
+   //wp_enqueue_script('bootstrapJs',plugins_url('includes/bootstrap/js/bootstrap.min.js',__FILE__),array('jquery'));   
+   wp_enqueue_script("JSExterno",BASIC_PLUGIN_URL.'includes/js/lista_encuestas.js', array('jquery'));
+}
+add_action('admin_enqueue_scripts','encolarJS');
