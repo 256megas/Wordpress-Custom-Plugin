@@ -48,13 +48,41 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
+        <form method="post">
+
+          <div class="modal-body">
+
+          <div class="form-group">
+            <label for="txtNombre" class="col-sm-4 col-form-label">Nombre de la encuesta</label>
+            <div class="col-sm-8">
+                <input type="text" id="txtNombre" name="txtNombre" style="width:100%">
+            </div>
+          </div>
+
+          <h4> Preguntas</h4>
+          <br>
+          <table id="camposdinamicos">
+            <tr>  
+                <td>
+                    <label for="txtNombre" class="col-form-label" style="margin-right:5px">Pregunta 1</label>
+                </td>
+                <td>
+                    <input type="text" name="name[]" id="name" class="form-control name_list">
+                </td>
+                <td>
+                  <!-- <button name="add" id="addPregunta" class="btn btn-danger" style="margin-left:15px">Agregar mas</button> -->
+                  <button name="add" id="addPregunta" >Agregar mas</button>                
+                </td>
+            </tr>
+          </table>
+
+          
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>        
     </div>
   </div>
 </div>
