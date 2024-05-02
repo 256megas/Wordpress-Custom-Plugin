@@ -1,6 +1,31 @@
 <?php 
     global $wpdb;
-    $listaEncuestasQuery = "SELECT idEncuesta, nombreEncuesta, shortcodeEncuesta FROM {$wpdb->prefix}encuestas;";
+
+    $tablaEncuestas="{$wpdb->prefix}encuestas";
+    $tablaEncuesta_detalle="{$wpdb->prefix}encuesta_detalle";
+
+    if(isset($_POST['GuardarEncuesta'])){
+      $nombreEncuesta=$_POST['txtNombre'];
+      $shortcodeEncuesta=strtoupper("[ENC_".$nombreEncuesta."]");
+
+      $datos=[
+        'idEncuesta' => null,
+        'nombreEncuesta' => $nombreEncuesta,
+        'shortcodeEncuesta' => $shortcodeEncuesta
+      ];
+      $respuesta =  $wpdb->insert($tablaEncuestas,$datos);
+      if($respuesta){
+
+        
+      }
+
+
+
+
+    }
+
+    //Mostramos encuestas
+    $listaEncuestasQuery = "SELECT idEncuesta, nombreEncuesta, shortcodeEncuesta FROM ".$tablaEncuestas;
     $listaEncuestas=$wpdb->get_results($listaEncuestasQuery,ARRAY_A);
     if (count($listaEncuestas)==0){
         $vacio=true;
@@ -58,8 +83,10 @@
                 <input type="text" id="txtNombre" name="txtNombre" style="width:100%">
             </div>
           </div>
-
+          <br>
+          <hr>
           <h4> Preguntas</h4>
+          <hr>
           <br>
           <table id="camposdinamicos">
             <tr>  
@@ -70,8 +97,13 @@
                     <input type="text" name="name[]" id="name" class="form-control name_list">
                 </td>
                 <td>
-                  <!-- <button name="add" id="addPregunta" class="btn btn-danger" style="margin-left:15px">Agregar mas</button> -->
-                  <button name="add" id="addPregunta" >Agregar mas</button>                
+                  <select name="type[]" id="type"class="form-control type_list" style="margin-right:5px">
+                    <option value="yn" select>SI - NO</option>
+                    <option value="range">Rando 0 - 5</option>
+                  </select>
+                </td>
+                <td>
+                  <button name="add" id="addPregunta" class="btn btn-success" style="margin-right:15px">Agregar mas</button>                
                 </td>
             </tr>
           </table>
@@ -80,7 +112,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary" name="GuardarEncuesta">Guardar</button>
           </div>
         </form>        
     </div>
