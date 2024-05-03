@@ -14,8 +14,26 @@
         'shortcodeEncuesta' => $shortcodeEncuesta
       ];
       $respuesta =  $wpdb->insert($tablaEncuestas,$datos);
-      if($respuesta){
 
+      if($respuesta){
+        // Obtenemos el id de la encuesta que acabamos de crear
+        $showMeId = "SELECT idEncuesta FROM ".$tablaEncuestas." WHERE nombreEncuesta ='".$nombreEncuesta."' AND shortcodeEncuesta='".$shortcodeEncuesta."' ORDER BY idEncuesta DESC ;";
+        $idEncuesta=$wpdb->get_var($showMeId);
+
+        // FIN Obtenemos el id de la encuesta que acabamos de crear
+        $listaPreguntas=$_POST['name'];
+        $indicePregunta=0;
+        foreach ($listaPreguntas as $key => $value) {
+          $tipo = $_POST['type'][$indicePregunta];
+          $datosPregunta=[
+            'idDetalle' => null,
+            'idEncuesta' => $idEncuesta,
+            'preguntaDetalle' => $value,
+            'tipoDetalle' => $tipo
+          ];
+         $wpdb->insert($tablaEncuesta_detalle,$datosPregunta);
+          $indicePregunta++;
+        }
         
       }
 
@@ -52,7 +70,7 @@
                             <td>{$encuesta['shortcodeEncuesta']}</td>
                             <td>
                                 <a class='page-title-action'>Ver estadisticas</a>
-                                <a class='page-title-action'>Borrar</a>
+                                <a class='page-title-action' data-id='{$encuesta['idEncuesta']}' >Borrar</a>
                             </td>
                         </tr>
                     ";
