@@ -17,8 +17,8 @@ class Principal{
             `idEncuesta` INT NULL,
             `preguntaDetalle` VARCHAR(155) NULL,
             `tipoDetalle` VARCHAR(45) NULL,
-            PRIMARY KEY (`idDetalle`),
-            FOREIGN KEY (`idEncuesta`) REFERENCES {$wpdb->prefix}encuestas(`idEncuesta`)
+            PRIMARY KEY (`idDetalle`)
+            -- FOREIGN KEY (`idEncuesta`) REFERENCES {$wpdb->prefix}encuestas(`idEncuesta`)
         );";
         $wpdb->query($create_encuesta_detalle_query);
 
@@ -26,8 +26,8 @@ class Principal{
             `idRespuesta` INT NOT NULL AUTO_INCREMENT,
             `idDetalle` INT NULL,
             `respuestaDetalle` VARCHAR(45) NULL,
-            PRIMARY KEY (`idRespuesta`),
-            FOREIGN KEY (`idDetalle`) REFERENCES {$wpdb->prefix}encuesta_detalle(`idDetalle`)
+            PRIMARY KEY (`idRespuesta`)
+            -- FOREIGN KEY (`idDetalle`) REFERENCES {$wpdb->prefix}encuesta_detalle(`idDetalle`)
             );";
         $wpdb->query($create_encuesta_respuesta_query);
 

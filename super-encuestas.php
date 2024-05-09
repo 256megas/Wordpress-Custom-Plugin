@@ -128,3 +128,6 @@ function eliminarEncuesta()
 
 }
 add_action('wp_ajax_peticioneliminar', 'eliminarEncuesta');
+
+
+// Creamos los shortcode
