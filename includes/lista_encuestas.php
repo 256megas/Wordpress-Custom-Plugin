@@ -30,7 +30,7 @@ if (isset($_POST['GuardarEncuesta'])) {
 
     $indicePregunta = 0;
     foreach ($listaPreguntas as $key => $value) {
-      var_dump($proximoId);
+      // var_dump($proximoId);
       $tipo = $_POST['type'][$indicePregunta];
       $datosPregunta = [
         'idDetalle' => null,

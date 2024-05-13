@@ -33,8 +33,10 @@ define("BASIC_CANTIDAD_ELEMENTOS", 12); // Cuantos elementos usaremos para una p
 
 require_once BASIC_PLUGIN_DIR . "includes/principal.php";
 $principal = new principal;
-//require_once BASIC_PLUGIN_DIR."includes/lista_encuestas.php";
+//require_once BASIC_PLUGIN_DIR."clases/lista_encuestas.php";
 
+// incluimos la clase para shortcode
+require_once BASIC_PLUGIN_DIR . "clases/codigoCorto.class.php";
 
 
 // Al activar el plugin
@@ -131,3 +133,4 @@ add_action('wp_ajax_peticioneliminar', 'eliminarEncuesta');
 
 
 // Creamos los shortcode
+

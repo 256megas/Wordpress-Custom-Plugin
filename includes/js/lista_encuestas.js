@@ -3,13 +3,13 @@ jQuery(document).ready(function ($) {
     // console.log(solicitudesAjax)
 
     $('#btnNuevaEncuesta').click(function () {
-        console.log("Nueva encuesta");
+        // console.log("Nueva encuesta");
         $('#modalNuevaEncuesta').modal("show");
     });
 
     var numPregunta = 1;
     $('#addPregunta').click(function (e) {
-        console.log("Nueva pregunta");
+        // console.log("Nueva pregunta");
         numPregunta++;
         lineaNueva = '<tr id="row' + numPregunta + '">';
         lineaNueva += '<td>';
@@ -37,18 +37,18 @@ jQuery(document).ready(function ($) {
     $(document).on('click', '.removePregunta', function () {
         var button_id = $(this).attr('id');
         $("#row" + button_id + "").remove();
-        console.log("Borramos");
+        // console.log("Borramos");
 
         return false;
     });
 
 
-    console.log("cargado")
+    // console.log("cargado")
     $(document).on('click', 'a[data-id]', function () {
         var idEncuesta = this.dataset.id;
         var url = solicitudesAjax.url;
-        console.log(solicitudesAjax.url);
-        console.log(solicitudesAjax.seguridad);
+        // console.log(solicitudesAjax.url);
+        // console.log(solicitudesAjax.seguridad);
         // $.ajax({
         //     type: "POST",
         //     url: url,
@@ -72,7 +72,11 @@ jQuery(document).ready(function ($) {
             },
             success:function(){
                 alert("Datos borrados");
-                // location.reload();
+                location.reload();
+                // setTimeout(function(){
+                //     window.location.reload();
+                //   });
+                //   window.location.reload();
             }
         });
 
