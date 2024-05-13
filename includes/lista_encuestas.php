@@ -125,8 +125,10 @@ if (count($listaEncuestas) == 0) {
               </td>
               <td>
                 <select name="type[]" id="type" class="form-control type_list" style="margin-right:5px">
-                  <option value="yn" select>SI - NO</option>
-                  <option value="range">Rando 0 - 5</option>
+                  <option value="1" select>SI - NO</option>
+                  <option value="2">Rando 0 - 5</option>
+                  <option value="3">Respuesta breve</option>
+
                 </select>
               </td>
               <td>

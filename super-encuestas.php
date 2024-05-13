@@ -133,4 +133,11 @@ add_action('wp_ajax_peticioneliminar', 'eliminarEncuesta');
 
 
 // Creamos los shortcode
-
+function imprimirShortcode($atts)
+{
+   $_shortcode = new codigoCorto;
+   $id= $atts['id'];
+   var_dump($atts);
+   
+}
+add_shortcode('ENC','imprimirShortcode');
