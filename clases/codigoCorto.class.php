@@ -12,10 +12,10 @@ class codigoCorto
         global $wpdb;
 
         $tabla = "{$wpdb->prefix}encuestas";
-        $listaEncuestas_query = "SELECT * FROM $tabla WHERE idEncuesta=`$encuestaId`";
-        $listaEncuestas = $wpdb->get_results($listaEncuestas_query, ARRAY_A);
+        $listaEncuestas_query = "SELECT * FROM $tabla WHERE idEncuesta='$encuestaId'";
 
-        if (empty($listaEncuestas)) {
+        $datos = $wpdb->get_results($listaEncuestas_query, ARRAY_A);
+        if (empty($datos)) {
             $datos = array();
         }
         return $datos[0];
@@ -26,13 +26,13 @@ class codigoCorto
         global $wpdb;
 
         $tabla = "{$wpdb->prefix}encuesta_detalle";
-        $listaDetalleEncuestas_query = "SELECT * FROM $tabla WHERE idEncuesta=`$encuestaId`";
+        $listaDetalleEncuestas_query = "SELECT * FROM $tabla WHERE idEncuesta='$encuestaId'";
         $listaDetalleEncuestas = $wpdb->get_results($listaDetalleEncuestas_query, ARRAY_A);
 
         if (empty($listaEncuestas)) {
             $datos = array();
         }
-        return $datos[0];
+        return $listaDetalleEncuestas;
     }
 
 
@@ -62,7 +62,7 @@ class codigoCorto
     function fromInput($detalleid, $pregunta, $tipo)
     {
         $html = "";
-        if ($tipo == 1) {
+        if ($tipo == 'yn') {
             $html = "
                 <diV class='from-group'>
                     <p><b>$pregunta</b></p>
@@ -74,10 +74,24 @@ class codigoCorto
                   </div>
             
             ";
-        } elseif ($tipo == 2) {
-
+        } elseif ($tipo == 'range') {
+                $html = "
+                <diV class='from-group'>
+                    <p><b>$pregunta</b></p>
+                    <div class='col-sm-8'>  
+                        TIPO 2
+                    </div>
+            
+                ";
         } else {
-
+            $html = "
+            <diV class='from-group'>
+                <p><b>$pregunta</b></p>
+                <div class='col-sm-8'>  
+                    TIPO 3
+                </div>
+        
+            ";
         }
         return $html;
     }
@@ -88,21 +102,34 @@ class codigoCorto
         $nombre = $encuesta['nombreEncuesta'];
         //Obtenemos todas las preguntas
         $preguntas = "";
-        $listapreguntas = $this->obtenerEncuestaDetalle(encuestaId);
+        $listapreguntas = $this->obtenerEncuestaDetalle($encuestaId);
         foreach ($listapreguntas as $key => $value) {
+
             $detalleid = $value['idDetalle'];
             $pregunta = $value['preguntaDetalle'];
             $tipo = $value['tipoDetalle'];
             $idEncuesta = $value['idEncuesta'];
+
+
             if ($idEncuesta == $encuestaId) {
+                // function fromInput($detalleid, $pregunta, $tipo)
+
                 $preguntas .= $this->fromInput($detalleid, $pregunta, $tipo);
             }
+
             $html = $this->formOpen($nombre);
             $html .= $preguntas;
             $html .= $this->formClose();
 
-            return $html;
         }
+        return $html;
+
+    }
+
+    public function guardarDetalle($datos){
+        global $wpdb;
+        $tablaEncuesta_respuesta  = "{$wpdb->prefix}encuesta_respuesta ";
+        return $wpdb->insert($tablaEncuesta_respuesta, $datos);
     }
 
 

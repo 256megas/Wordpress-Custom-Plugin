@@ -25,6 +25,7 @@ class Principal{
         $create_encuesta_respuesta_query ="CREATE TABLE IF NOT EXISTS {$wpdb->prefix}encuesta_respuesta(
             `idRespuesta` INT NOT NULL AUTO_INCREMENT,
             `idDetalle` INT NULL,
+            `codigoRespuesta` VARCHAR(45) NULL,
             `respuestaDetalle` VARCHAR(45) NULL,
             PRIMARY KEY (`idRespuesta`)
             -- FOREIGN KEY (`idDetalle`) REFERENCES {$wpdb->prefix}encuesta_detalle(`idDetalle`)

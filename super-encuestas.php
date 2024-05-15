@@ -33,10 +33,10 @@ define("BASIC_CANTIDAD_ELEMENTOS", 12); // Cuantos elementos usaremos para una p
 
 require_once BASIC_PLUGIN_DIR . "includes/principal.php";
 $principal = new principal;
-//require_once BASIC_PLUGIN_DIR."clases/lista_encuestas.php";
 
 // incluimos la clase para shortcode
 require_once BASIC_PLUGIN_DIR . "clases/codigoCorto.class.php";
+
 
 
 // Al activar el plugin
@@ -65,7 +65,7 @@ function admin_menu_func()
       'manage_options',  // Capability
       BASIC_PLUGIN_DIR . 'includes/lista_encuestas.php', // Slug
       null, // funcion
-      //'dashicons-controls-repeat',
+      'dashicons-controls-repeat',
       // 20x20
       BASIC_PLUGIN_URL . 'includes/images/star.png',
       '1'
@@ -135,9 +135,36 @@ add_action('wp_ajax_peticioneliminar', 'eliminarEncuesta');
 // Creamos los shortcode
 function imprimirShortcode($atts)
 {
+
+
    $_shortcode = new codigoCorto;
-   $id= $atts['id'];
-   var_dump($atts);
-   
+
+   // Obtenemos el id por parametros
+   $id = $atts['id'];
+   // Acciones del boton
+   if (isset($_POST['btnguardar'])) {
+      $codigo = uniqid();
+      foreach ($_POST as $idPregunta => $respuesta) {
+         // $respuestas=$_shortcode->obtenerEncuestaDetalle(($id));
+         // var_dump($idPregunta);
+         // var_dump($respuesta);
+         // var_dump($codigo);
+         if (isset($_POST[$idPregunta])) {
+            $datos = [
+               "idDetalle" => $idPregunta,
+               "respuestaDetalle" => $respuesta,
+               "codigoRespuesta" => $codigo
+            ];
+            echo $_shortcode->guardarDetalle($datos);
+         }
+
+      }
+      return "Encuesta enviada exitosamente";
+   }
+
+   //Respuesta 
+   $html = $_shortcode->armador($id);
+   return $html;
+
 }
-add_shortcode('ENC','imprimirShortcode');
+add_shortcode('ENC', 'imprimirShortcode');
