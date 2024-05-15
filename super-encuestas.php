@@ -145,11 +145,7 @@ function imprimirShortcode($atts)
    if (isset($_POST['btnguardar'])) {
       $codigo = uniqid();
       foreach ($_POST as $idPregunta => $respuesta) {
-         // $respuestas=$_shortcode->obtenerEncuestaDetalle(($id));
-         // var_dump($idPregunta);
-         // var_dump($respuesta);
-         // var_dump($codigo);
-         if (isset($_POST[$idPregunta])) {
+         if (isset($_POST[$idPregunta]) && $respuesta != "enviar") {
             $datos = [
                "idDetalle" => $idPregunta,
                "respuestaDetalle" => $respuesta,

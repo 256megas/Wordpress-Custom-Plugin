@@ -75,7 +75,7 @@ class codigoCorto
             
             ";
         } elseif ($tipo == 'range') {
-                $html = "
+            $html = "
                 <diV class='from-group'>
                     <p><b>$pregunta</b></p>
                     <div class='col-sm-8'>  
@@ -126,11 +126,13 @@ class codigoCorto
 
     }
 
-    public function guardarDetalle($datos){
+    public function guardarDetalle($datos)
+    {
         global $wpdb;
-        $tablaEncuesta_respuesta  = "{$wpdb->prefix}encuesta_respuesta ";
-        return $wpdb->insert($tablaEncuesta_respuesta, $datos);
-    }
+        $tablaEncuesta_respuesta = "{$wpdb->prefix}encuesta_respuesta";
+        $respuesta = $wpdb->insert($tablaEncuesta_respuesta, $datos);
+        return $respuesta;
+     }
 
 
 
